@@ -55,4 +55,4 @@ class RetoServices {
     }
 }
 
-export default new RetoServices(RetoRepositories);
+export default new RetoServices();

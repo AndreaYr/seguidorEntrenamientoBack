@@ -1,7 +1,7 @@
 import UsuarioRepository from '../repositories/UsuarioRepository.js';
 import bcrypt from 'bcrypt';
 
-class UsuarioController {
+class UsuarioServices {
 
     async createUsuario(data) {
         if(!data.correo || !data.contrasenia || !data.primerNombre || !data.primerApellido){
@@ -56,4 +56,4 @@ class UsuarioController {
     }
 }
 
-export default new UsuarioController();
+export default new UsuarioServices();
