@@ -27,8 +27,9 @@ class UsuarioServices {
         return UsuarioRepository.findAll();
     }
 
-    async getById(req, res) {
-        const user = await UsuarioRepository.findById(req.params.id);
+    // 🔥 CORREGIDO: Este método estaba mal - quitamos req, res
+    async getById(id) {
+        const user = await UsuarioRepository.findByPK(id);
         if(!user){
             throw new Error('Usuario no encontrado');   
         }
@@ -36,6 +37,12 @@ class UsuarioServices {
     }
 
     async updateUsuario(id, data) {
+        // Si se está actualizando la contraseña, encriptarla
+        if (data.contrasenia) {
+            const saltRounds = 10;
+            data.contrasenia = await bcrypt.hash(data.contrasenia, saltRounds);
+        }
+        
         const updated = await UsuarioRepository.update(id, data);
         if(!updated){
             throw new Error('Usuario no encontrado o no se pudo actualizar');
@@ -48,7 +55,7 @@ class UsuarioServices {
         if(!deleted){
             throw new Error('Usuario no encontrado o no se pudo eliminar');
         }
-        return deleted;
+        return { message: 'Usuario eliminado exitosamente' };
     }
 
     async bulkCreate(data) {

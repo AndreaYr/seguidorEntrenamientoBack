@@ -19,8 +19,9 @@ class UsuarioRepository {
         return await Usuario.findOne({ where: { correo } });
     }
 
+    
     async update(id, data){
-       const usuario = await Usuario.findByPk(id, data);
+       const usuario = await Usuario.findByPk(id);
        if(usuario){
            return await usuario.update(data);
        }
@@ -37,8 +38,6 @@ class UsuarioRepository {
     async bulkCreate(usuarios) {
         return await Usuario.bulkCreate(usuarios);
     }
-
-    
 }
 
 export default new UsuarioRepository();
