@@ -35,20 +35,24 @@ class UsuarioController {
         return user;
     }
 
-    async updateUsuario(req, res) {
-        const updated = await UsuarioRepository.update(req.params.id, req.body);
+    async updateUsuario(id, data) {
+        const updated = await UsuarioRepository.update(id, data);
         if(!updated){
             throw new Error('Usuario no encontrado o no se pudo actualizar');
         }
         return updated;
     }
 
-    async deleteUsuario(req, res) {
-        const deleted = await UsuarioRepository.delete(req.params.id);
+    async deleteUsuario(id) {
+        const deleted = await UsuarioRepository.delete(id);
         if(!deleted){
             throw new Error('Usuario no encontrado o no se pudo eliminar');
         }
         return deleted;
+    }
+
+    async bulkCreate(data) {
+     return await UsuarioRepository.bulkCreate(data);
     }
 }
 

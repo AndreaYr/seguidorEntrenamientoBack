@@ -10,8 +10,8 @@ class UsuarioRepository {
     }
 
     //Busca usuario por Id
-    async findById(id) {
-        return await Usuario.findById(id, {attributes: { exclude: ['contrasenia'] }});
+    async findByPK(id) {
+        return await Usuario.findByPk(id, {attributes: { exclude: ['contrasenia'] }});
     }
 
     //Busca usuario por correo
@@ -20,7 +20,7 @@ class UsuarioRepository {
     }
 
     async update(id, data){
-       const usuario = await this.findById(id);
+       const usuario = await Usuario.findByPk(id, data);
        if(usuario){
            return await usuario.update(data);
        }
@@ -33,6 +33,12 @@ class UsuarioRepository {
         });
         return deleted > 0;
     }
+
+    async bulkCreate(usuarios) {
+        return await Usuario.bulkCreate(usuarios);
+    }
+
+    
 }
 
 export default new UsuarioRepository();

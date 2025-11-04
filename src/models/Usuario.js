@@ -1,5 +1,6 @@
 import { sequelize } from "../database.js";
 import { DataTypes } from "sequelize";
+import bcrypt from 'bcrypt';
 
 const Usuario = sequelize.define("usuario", {
 
@@ -36,7 +37,7 @@ const Usuario = sequelize.define("usuario", {
     },
     fechaRegistro:{
         type: DataTypes.DATEONLY,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
     },
     rol:{
@@ -46,7 +47,26 @@ const Usuario = sequelize.define("usuario", {
     }, 
 },{  
     tableName: "usuarios",
-    timestamps: false
+    timestamps: false,
+
+    hooks: {
+      // Encripta al crear un usuario individual
+      beforeCreate: async (usuario) => {
+        if (usuario.contrasenia) {
+          const salt = await bcrypt.genSalt(10);
+          usuario.contrasenia = await bcrypt.hash(usuario.contrasenia, salt);
+        }
+      },
+      // Encripta cuando se usa bulkCreate
+      beforeBulkCreate: async (usuarios) => {
+        for (const usuario of usuarios) {
+          if (usuario.contrasenia) {
+            const salt = await bcrypt.genSalt(10);
+            usuario.contrasenia = await bcrypt.hash(usuario.contrasenia, salt);
+          }
+        }
+      },
+    }
 
 });
 export default Usuario;

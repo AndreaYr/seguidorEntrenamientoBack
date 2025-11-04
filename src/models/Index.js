@@ -1,5 +1,4 @@
 import { sequelize } from "../database.js";
-import { DataTypes } from "sequelize";
 
 // Importar modelos en orden de dependencias
 // 1. Primero los modelos base sin dependencias
