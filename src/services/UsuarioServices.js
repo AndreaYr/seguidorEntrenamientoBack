@@ -1,7 +1,7 @@
 import UsuarioRepository from '../repositories/UsuarioRepository.js';
 import bcrypt from 'bcrypt';
 
-class UsuarioController {
+class UsuarioServices {
 
     async createUsuario(data) {
         if(!data.correo || !data.contrasenia || !data.primerNombre || !data.primerApellido){
@@ -27,8 +27,9 @@ class UsuarioController {
         return UsuarioRepository.findAll();
     }
 
-    async getById(req, res) {
-        const user = await UsuarioRepository.findById(req.params.id);
+    // 🔥 CORREGIDO: Este método estaba mal - quitamos req, res
+    async getById(id) {
+        const user = await UsuarioRepository.findByPK(id);
         if(!user){
             throw new Error('Usuario no encontrado');   
         }
@@ -36,6 +37,12 @@ class UsuarioController {
     }
 
     async updateUsuario(id, data) {
+        // Si se está actualizando la contraseña, encriptarla
+        if (data.contrasenia) {
+            const saltRounds = 10;
+            data.contrasenia = await bcrypt.hash(data.contrasenia, saltRounds);
+        }
+        
         const updated = await UsuarioRepository.update(id, data);
         if(!updated){
             throw new Error('Usuario no encontrado o no se pudo actualizar');
@@ -48,7 +55,7 @@ class UsuarioController {
         if(!deleted){
             throw new Error('Usuario no encontrado o no se pudo eliminar');
         }
-        return deleted;
+        return { message: 'Usuario eliminado exitosamente' };
     }
 
     async bulkCreate(data) {
@@ -56,4 +63,4 @@ class UsuarioController {
     }
 }
 
-export default new UsuarioController();
+export default new UsuarioServices(); 
