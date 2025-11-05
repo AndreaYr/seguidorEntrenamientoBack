@@ -3,7 +3,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", DeportistaController.getDeportista);
+router.get("/", DeportistaController.getDeportistas);
 router.get("/:id", DeportistaController.getDeportistaById);
 router.post("/", DeportistaController.createDeportista);
 router.put("/:id", DeportistaController.updateDeportista);

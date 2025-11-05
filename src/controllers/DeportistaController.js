@@ -1,48 +1,50 @@
-import DeportistaService from "../services/DeportistaService.js";
+// controllers/DeportistaController.js
+import DeportistaServices from "../services/DeportistaService.js";
 
 class DeportistaController {
-    async getDeportista(req, res) {
+
+    async getDeportistas(req, res) {
         try{
-            const data = await DeportistaService.getDeportista();
-            res.json(data); 
+            const deportistas = await DeportistaServices.getDeportistas();
+            res.json(deportistas);
         }catch(error){
-            res.status(500).json({ message: error.message });
+            res.status(500).json({error: error.message});
         }
     }
 
     async getDeportistaById(req, res) {
         try{
-            const data = await DeportistaService.getDeportistaById(req.params.id);
-            res.json(data);
+            const deportista = await DeportistaServices.getDeportistaById(req.params.id);
+            res.json(deportista);
         }catch(error){
-            res.status(404).json({ message: error.message });
+            res.status(404).json({error: error.message});
         }
     }
 
-    async createDeportista(req, res){
+    async createDeportista(req, res) {
         try{
-            const data = await DeportistaService.createDeportista(req.body);   
-            res.status(201).json(data);
+            const newDeportista = await DeportistaServices.createDeportista(req.body);
+            res.status(201).json(newDeportista);
         }catch(error){
-            res.status(400).json({ message: error.message });
+            res.status(400).json({error: error.message});
         }
     }
 
-    async updateDeportista(req, res){
+    async updateDeportista(req, res) {
         try{
-            const data = await DeportistaService.updateDeportista(req.params.id, req.body);
-            res.json(data);
+            const updatedDeportista = await DeportistaServices.updateDeportista(req.params.id, req.body);
+            res.json(updatedDeportista);
         }catch(error){
-            res.status(400).json({ message: error.message });
+            res.status(400).json({error: error.message});
         }
     }
 
-    async deleteDeportista(req, res){
+    async deleteDeportista(req, res) {
         try{
-            await DeportistaService.deleteDeportista(req.params.id);
-            res.json({ message: "Deportista eliminado correctamente" });
+            const result = await DeportistaServices.deleteDeportista(req.params.id);
+            res.json(result);
         }catch(error){
-            res.status(400).json({ message: error.message });
+            res.status(400).json({error: error.message});
         }
     }
 }

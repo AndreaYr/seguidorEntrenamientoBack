@@ -62,4 +62,6 @@ const Entrenamiento = sequelize.define("Entrenamiento", {
     timestamps: false
 });
 
+
+
 export default Entrenamiento;
