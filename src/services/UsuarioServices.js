@@ -27,7 +27,6 @@ class UsuarioServices {
         return UsuarioRepository.findAll();
     }
 
-    // 🔥 CORREGIDO: Este método estaba mal - quitamos req, res
     async getById(id) {
         const user = await UsuarioRepository.findByPK(id);
         if(!user){

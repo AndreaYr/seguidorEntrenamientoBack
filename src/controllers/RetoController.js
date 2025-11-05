@@ -45,6 +45,16 @@ class RetoController{
             res.status(404).json({message: error.message});
         }
     }
+
+    async bulkCreateRetos(req, res) {
+        try {
+            const retos = await RetoServices.bulkCreate(req.body);
+            res.status(201).json(retos);
+        } catch (error) {
+            console.error("Error en bulkCreateRetos:", error);
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 export default new RetoController();

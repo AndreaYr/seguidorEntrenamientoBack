@@ -28,5 +28,9 @@ class DeportistaRepository {
             }
         });
     }
+
+    async bulkCreate(data) {
+        return await Deportista.bulkCreate(data);
+    }
 }
 export default new DeportistaRepository();

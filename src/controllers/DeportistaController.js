@@ -45,6 +45,16 @@ class DeportistaController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    async bulkCreateDeportista(req, res) {
+        try {
+            const deportista = await DeportistaService.bulkCreate(req.body);
+            res.status(201).json(deportista);
+        } catch (error) {
+            console.error("Error en bulkCreateRetos:", error);
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 export default new DeportistaController();

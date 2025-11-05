@@ -24,5 +24,10 @@ class DeportistaService {
     async deleteDeportista(id) {
         return await DeportistaRepository.delete(id);
     }
+
+    async bulkCreate(data) {
+        return await DeportistaRepository.bulkCreate(data);
+            
+    }
 }
 export default new DeportistaService();
