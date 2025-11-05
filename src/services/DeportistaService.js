@@ -46,6 +46,11 @@ class DeportistaServices {
         }
         return { message: 'Deportista eliminado exitosamente' };
     }
+
+    async bulkCreate(data) {
+        return await DeportistaRepository.bulkCreate(data);
+            
+    }
 }
 
 export default new DeportistaServices();

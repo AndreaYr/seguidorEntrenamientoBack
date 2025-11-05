@@ -8,5 +8,7 @@ router.get("/:id", DeportistaController.getDeportistaById);
 router.post("/", DeportistaController.createDeportista);
 router.put("/:id", DeportistaController.updateDeportista);
 router.delete("/:id", DeportistaController.deleteDeportista);
+router.post("/bulkDeportista", DeportistaController.bulkCreateDeportista);
+
 
 export default router;

@@ -8,5 +8,7 @@ router.get('/', RetoController.getAllRetos);
 router.get('/:id', RetoController.getRetoById);
 router.put('/:id', RetoController.updateReto);
 router.delete('/:id', RetoController.deleteReto);
+router.post("/bulkRetos", RetoController.bulkCreateRetos);
+
 
 export default router;

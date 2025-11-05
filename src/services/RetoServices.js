@@ -53,6 +53,11 @@ class RetoServices {
             throw new Error("Error en el servicio al eliminar reto: " + error.message);
         }
     }
+
+     async bulkCreate(data) {
+        return await RetoRepositories.bulkCreate(data);
+        
+    }
 }
 
-export default new RetoServices(RetoRepositories);
+export default new RetoServices();

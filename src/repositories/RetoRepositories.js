@@ -1,6 +1,5 @@
 import Reto from '../models/Reto.js';
 import Deportista from '../models/Deportista.js';
-import DeportistaReto from '../models/DeportistaReto.js';
 import Usuario from '../models/Usuario.js';
 
 class RetoRepositories {
@@ -17,16 +16,14 @@ class RetoRepositories {
         try{
             return await Reto.findAll({
                 include: [{
-                    model: DeportistaReto,
+                    model: Deportista,
                     required: false,
+                    
                     include: [{
-                        model: Deportista,
+                        model: Usuario,
                         required: false,
-                        attributes: ['id_deportista', 'id_usuario'],
-                        include: [{
-                            model: Usuario,
-                            attributes: ['primerNombre', 'primerApellido', 'id_usuario']
-                        }]
+                        attributes: ['id_usuario', 'primerNombre', 'primerApellido'],
+                        
                     }]
                 }],
                 order: [['id_reto', 'ASC']]
@@ -39,10 +36,20 @@ class RetoRepositories {
     async getRetoById(id) {
         try{
             return await Reto.findByPk(id, {
+                
                 include: [{
-                    model: DeportistaReto,
-                    include: [Deportista]
-                }]
+                    model: Deportista,
+                    attributes: ['id_deportista', 'id_usuario'],
+                    
+                        include: [
+                            {
+                                model: Usuario,
+                                attributes: ['id_usuario', 'primerNombre', 'primerApellido']
+                            }
+                        ]
+                    }
+                ]
+                
             });
         }catch(error){
             throw new Error('Error fetching Reto by ID: ' + error.message);
@@ -71,6 +78,10 @@ class RetoRepositories {
         }catch(error){
             throw new Error('Error deleting Reto: ' + error.message);
         }
+    }
+
+    async bulkCreate(usuarios) {
+        return await Reto.bulkCreate(usuarios);
     }
 }
 
