@@ -31,7 +31,7 @@ await sequelize.sync({ alter: true, logging: console.log });
 export const models = sequelize.models;
 
 // Definir relaciones entre modelos aquí si es necesario
-Deportista.belongsTo(Usuario, { foreignKey: "id_usuario" });
+Deportista.belongsTo(Usuario, { foreignKey: "id_usuario", as: "usuario" });
 Usuario.hasOne(Deportista, { foreignKey: "id_usuario" });
 
 Entrenador.belongsTo(Usuario, { foreignKey: "id_usuario" });

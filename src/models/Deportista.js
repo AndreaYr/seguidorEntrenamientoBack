@@ -52,15 +52,5 @@ const Deportista = sequelize.define("Deportista",{
     timestamps: false
 });
 
-Deportista.belongsTo(Usuario, {
-    foreignKey: 'id_usuario',
-    as: 'usuario'
-});
-
-Deportista.belongsTo(Entrenador, {
-    foreignKey: 'id_entrenador',
-    as: 'entrenador'
-});
-
 
 export default Deportista;

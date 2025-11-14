@@ -16,18 +16,29 @@ const Reporte = sequelize.define("Reporte", {
             key: 'id_deportista'
         }
     },
-    fechaGeneracion: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    periodoEvaluado: {
-        type: DataTypes.STRING,
+    fechaInicio: {
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
-    metricasRendimiento: {
-        type: DataTypes.JSONB,
+    fechaFin: {
+        type: DataTypes.DATEONLY,
         allowNull: false,
+    },
+    caloriasTotales: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    distanciaTotal: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    velocidadPromedio: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    entrenamientosRealizados: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
     },
 }, {
     tableName: "reportes",

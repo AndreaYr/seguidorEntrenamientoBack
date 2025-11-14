@@ -1,5 +1,6 @@
 import Deportista from "../models/Deportista.js";
 import Reporte from "../models/Reporte.js";
+import Usuario from "../models/Usuario.js";
 
 class ReporteRepositories {
     async createReporte(data) {
@@ -11,12 +12,22 @@ class ReporteRepositories {
 
             return await Reporte.create(data);
         }catch(error){
+                console.error("⚠️ Error en ReporteRepositories.createReporte:", error);
+
              throw new Error("Error creando reporte: " + error.message);
         }
     }
 
     async getAllReportes() {
-        return await Reporte.findAll();
+        try{
+            const reportes = await Reporte.findAll({
+               
+            })
+            return reportes;
+
+        }catch(error){
+            throw new Error(error)
+        }
     }
 
     async getReporteById(id) {

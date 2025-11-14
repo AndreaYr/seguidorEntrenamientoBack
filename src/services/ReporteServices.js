@@ -1,4 +1,5 @@
 import ReporteRepositories from "../repositories/ReporteRepositories.js";
+import Deportista from "../models/Deportista.js";
 
 class ReporteServices {
 

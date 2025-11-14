@@ -9,6 +9,7 @@ import DeportistaRoutes from "./routes/DeportistaRoutes.js";
 import EntrenamientoRoutes from "./routes/EntrenamientoRoutes.js";
 import ReporteRoutes from "./routes/ReporteRoutes.js";
 import RetoRoutes from "./routes/RetoRoutes.js";
+import UserRoutes from "./routes/userRoutes.js"
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 
 // Rutas públicas 
+app.use("/login", UserRoutes);
 app.use("/usuarios", Usuario);
 app.use("/deportistas", DeportistaRoutes);
 app.use("/entrenamientos", EntrenamientoRoutes);
