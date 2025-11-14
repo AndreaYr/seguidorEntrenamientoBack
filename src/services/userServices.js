@@ -5,10 +5,12 @@ import UserRepository from '../repositories/user-repository.js';
 import Usuario from '../models/Usuario.js';
 
 dotenv.config();
+
 const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
 const JWT_EXPIRES = process.env.JWT_EXPIRES_IN || "8h";
 
-export async function login(correo, contrasenia) {
+class UserService{
+    async  login(correo, contrasenia) {
     const user = await UserRepository.findByEmail(correo);
     if(!user){
         throw new Error("Usuario no encontrado");
@@ -62,4 +64,7 @@ export async function login(correo, contrasenia) {
         }
     }
 
+    }
 }
+
+export default new UserService();

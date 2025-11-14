@@ -8,17 +8,10 @@ class UsuarioServices {
             throw new Error('Faltan campos obligatorios');
         }
 
-        const usuarioExistente = await UsuarioRepository.findAll();
-        if(usuarioExistente.some(user => user.correo === data.correo)){
+        const usuarioExistente = await UsuarioRepository.findByEmail(data.correo);
+        if(usuarioExistente){
             throw new Error('El correo ya está registrado');
         }
-
-        //encriptar la contraseña
-        const saltRounds = 10; //Nivel de complejidad 
-        const hash = await bcrypt.hash(data.contrasenia, saltRounds);
-
-        //Reemplazar la contraseña por el hash
-        data.contrasenia = hash;
 
         return await UsuarioRepository.create(data);
     }
