@@ -10,6 +10,7 @@ import EntrenamientoRoutes from "./routes/EntrenamientoRoutes.js";
 import ReporteRoutes from "./routes/ReporteRoutes.js";
 import RetoRoutes from "./routes/RetoRoutes.js";
 import UserRoutes from "./routes/userRoutes.js"
+import consultaReporteRoutes from "./routes/ConsultaReporteRoutes.js"
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use("/deportistas", DeportistaRoutes);
 app.use("/entrenamientos", EntrenamientoRoutes);
 app.use("/reportes", ReporteRoutes);
 app.use("/reto", RetoRoutes);
+app.use('/consultas', consultaReporteRoutes);
 
 
 const startServer = async () => {
