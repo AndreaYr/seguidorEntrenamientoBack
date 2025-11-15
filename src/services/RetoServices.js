@@ -1,78 +1,87 @@
-import bcrypt from 'bcrypt';
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import RetoRepositories from "../repositories/RetoRepositories.js";
 
-import UserRepository from '../repositories/user-repository.js';
+class RetoServices {
 
-dotenv.config();
-
-const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
-const JWT_EXPIRES = process.env.JWT_EXPIRES_IN || "8h";
-
-class UserService {
-
-    async login(correo, contrasenia) {
-
-        // Buscar usuario
-        const user = await UserRepository.findByEmail(correo);
-
-        if (!user) {
-            throw new Error("Usuario no encontrado");
+    async createReto(data) {
+        try{
+            return await RetoRepositories.createReto(data);
+        }catch(error){
+            throw new Error("Error creando reto: " + error.message);
         }
+    }
 
-        // Verificar contraseña
-        const match = await bcrypt.compare(contrasenia, user.contrasenia);
-
-        if (!match) {
-            throw new Error("Contraseña incorrecta");
-        }
-
-        // Payload del token
-        const payload = {
-            id_usuario: user.id_usuario,
-            rol: user.rol
-        };
-
-        const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES });
-
-        // Construir perfil
-        let perfil = null;
-
-        if (user.rol === "deportista" && user.Deportista) {
-            perfil = {
-                id_deportista: user.Deportista.id_deportista,
-                peso: user.Deportista.peso,
-                altura: user.Deportista.altura,
-                id_entrenador: user.Deportista.id_entrenador
-            };
-        }
-        else if (user.rol === "entrenador" && user.Entrenador) {
-            perfil = {
-                id_entrenador: user.Entrenador.id_entrenador,
-                experiencia: user.Entrenador.experiencia
-            };
-        }
-        else if (user.rol === "administrador" && user.Administrador) {
-            perfil = {
-                id_administrador: user.Administrador.id_administrador,
-                cargo: user.Administrador.cargo,
-                permisos: user.Administrador.permisos
-            };
-        }
-
-        // Respuesta final
-        return {
-            token,
-            usuario: {
-                id_usuario: user.id_usuario,
-                correo: user.correo,
-                primerNombre: user.primerNombre,
-                primerApellido: user.primerApellido,
-                rol: user.rol,
-                perfil
+    async addParticipante(data) {
+        try {
+            // Validar que el reto existe
+            const reto = await RetoRepositories.getRetoById(data.id_reto);
+            if (!reto) {
+                throw new Error("Reto no encontrado");
             }
-        };
+            
+            // Validar que no esté ya inscrito
+            const existing = await this.getParticipantesByReto(data.id_reto);
+            const alreadyRegistered = existing.some(p => p.id_deportista === data.id_deportista);
+            
+            if (alreadyRegistered) {
+                throw new Error("El deportista ya está inscrito en este reto");
+            }
+
+            return await RetoRepositories.addParticipante(data);
+        } catch (error) {
+            throw new Error("Error agregando participante: " + error.message);
+        }
+    }
+
+    async getParticipantesByReto(id_reto) {
+        try {
+            return await RetoRepositories.getParticipantesByReto(id_reto);
+        } catch (error) {
+            throw new Error("Error obteniendo participantes: " + error.message);
+        }
+    }
+    async getAllRetos() {
+        try{
+            return await RetoRepositories.getAllRetos();
+        }catch(error){
+            throw new Error("Error obteniendo retos: " + error.message);
+        }
+    }
+
+    async getRetoById(id) {
+        try{
+            const reto = await RetoRepositories.getRetoById(id);
+            if(!reto){
+                throw new Error("reto no encontrado");
+            }
+            return reto;
+        }catch(error){
+            throw new Error("Error obteniendo reto por ID: " + error.message);
+        }
+    }
+
+    async updateReto(id, data) {
+        try{
+            const reto = await RetoRepositories.updateReto(id, data);
+            if(!reto){
+                throw new Error("Reto no encontrado para actualizar");
+            }
+            return reto;
+        }catch(error){
+            throw new Error("Error actualizando reto: " + error.message);
+        }
+    }
+
+    async deleteReto(id) {
+        try{
+            const reto = await RetoRepositories.deleteReto(id);
+            if(!reto){
+                throw new Error("Reto no encontrado para eliminar");
+            }   
+            return true;
+        }catch(error){
+            throw new Error("Error eliminando reto: " + error.message);
+        }
     }
 }
 
-export default new UserService();
+export default new RetoServices();

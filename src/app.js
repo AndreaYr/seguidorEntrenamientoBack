@@ -14,8 +14,6 @@ import UserRoutes from "./routes/userRoutes.js"
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
-const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
-
 const app = express();
 let server;
 
@@ -23,7 +21,7 @@ let server;
 // Middlewares
 app.use(
   cors({
-    origin: CORS_ORIGIN,
+    origin: ["http://localhost:5173", "http://localhost:5174"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     allowedHeaders: "*",

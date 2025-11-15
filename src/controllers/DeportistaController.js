@@ -1,5 +1,7 @@
 // controllers/DeportistaController.js
 import DeportistaServices from "../services/DeportistaService.js";
+import Usuario from "../models/Usuario.js";
+import Deportista from "../models/Deportista.js";
 
 class DeportistaController {
 
@@ -9,6 +11,21 @@ class DeportistaController {
             res.json(deportistas);
         }catch(error){
             res.status(500).json({error: error.message});
+        }
+    }
+
+    async getAllDeportistas(req, res) {
+        try {
+            const deportistas = await Deportista.findAll({
+                include: [{
+                    model: Usuario,
+                    as: 'usuario',
+                    attributes: ['id_usuario', 'primerNombre', 'primerApellido']
+                }]
+            });
+            res.json(deportistas);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
     }
 

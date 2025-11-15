@@ -53,14 +53,14 @@ Reto.hasMany(DeportistaReto, { foreignKey: "id_reto" });
 DeportistaReto.belongsTo(Reto, { foreignKey: "id_reto" });
 
 Deportista.hasMany(DeportistaReto, { foreignKey: "id_deportista" });
-DeportistaReto.belongsTo(Deportista, { foreignKey: "id_deportista" });
+DeportistaReto.belongsTo(Deportista, { foreignKey: "id_deportista", as: 'Deportista'});
 Entrenamiento.belongsTo(Entrenador, { foreignKey: "id_entrenador" });
 
 Entrenamiento.belongsToMany(Ejercicio, { through: EntrenamientoEjercicio, foreignKey: "id_entrenamiento" });
 Ejercicio.belongsToMany(Entrenamiento, { through: EntrenamientoEjercicio, foreignKey: "id_ejercicio" });
 
-Deportista.belongsToMany(Reto, { through: "DeportistaReto", foreignKey: "id_deportista" });
-Reto.belongsToMany(Deportista, { through: "DeportistaReto", foreignKey: "id_reto" });
+Deportista.belongsToMany(Reto, { through: "DeportistaReto", foreignKey: "id_deportista", as: "Retos"});
+Reto.belongsToMany(Deportista, { through: "DeportistaReto", foreignKey: "id_reto", as: "Deportista"});
 
 // Relación entre Deportista y Reporte
 Deportista.hasMany(Reporte, { foreignKey: "id_deportista" });
