@@ -3,7 +3,7 @@ import { sequelize } from "../database.js";
 
 class ConsultaReporteService {
     
-    // 1. REPORTE: Deportistas por entrenador - NO MOVER (YA FUNCIONA)
+    // 1 REPORTE: Deportistas por entrenador
     async getDeportistasPorEntrenador() {
         const query = `
             SELECT 
@@ -23,7 +23,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 2. REPORTE: Entrenamientos recientes (SOLO COLUMNAS BÁSICAS)
+    // 2 REPORTE: Entrenamientos recientes
     async getEntrenamientosRecientes() {
         const query = `
             SELECT 
@@ -41,7 +41,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 3. REPORTE: Retos activos - NO MOVER (YA FUNCIONA)
+    // 3 REPORTE: Retos activos
     async getRetosActivos() {
         const query = `
             SELECT 
@@ -60,7 +60,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 4. REPORTE: Progreso mensual (SOLO COLUMNAS BÁSICAS)
+    // 4 REPORTE: Progreso mensual 
     async getProgresoMensual() {
         const query = `
             SELECT 
@@ -80,7 +80,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 5. REPORTE: Estadísticas básicas (SIN tipo_disciplina)
+    // 5 REPORTE: Estadisticas basicas 
     async getEstadisticasDisciplina() {
         const query = `
             SELECT 
@@ -94,7 +94,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 6. REPORTE: Ranking de deportistas (SOLO COLUMNAS BÁSICAS)
+    // 6 REPORTE: Ranking de deportistas 
     async getRankingDeportistas() {
         const query = `
             SELECT 
@@ -115,7 +115,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 7. REPORTE: Participación en retos
+    // 7 REPORTE: Participación en retos
     async getParticipacionRetos() {
         const query = `
             SELECT 
@@ -135,7 +135,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 8. REPORTE: Evolución del rendimiento (SOLO COLUMNAS BÁSICAS)
+    // 8 REPORTE: Evolución del rendimiento
     async getEvolucionRendimiento() {
         const query = `
             SELECT 
@@ -158,7 +158,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 9. REPORTE: Consistencia en entrenamientos
+    // 9 REPORTE: Consistencia en entrenamientos
     async getConsistenciaEntrenamiento() {
         const query = `
             SELECT 
@@ -178,7 +178,7 @@ class ConsultaReporteService {
         return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     }
 
-    // 10. REPORTE: Métricas generales
+    // 10 REPORTE: Metricas generales
     async getMetricasGenerales() {
         const query = `
             SELECT 
