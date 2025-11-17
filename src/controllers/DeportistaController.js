@@ -49,9 +49,13 @@ class DeportistaController {
 
     async updateDeportista(req, res) {
         try{
+            console.log('Actualizando deportista ID:', req.params.id);
+            console.log('Datos recibidos:', req.body);
             const updatedDeportista = await DeportistaServices.updateDeportista(req.params.id, req.body);
+            console.log('Deportista actualizado:', updatedDeportista);
             res.json(updatedDeportista);
         }catch(error){
+            console.error('Error en updateDeportista:', error);
             res.status(400).json({error: error.message});
         }
     }

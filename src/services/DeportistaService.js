@@ -32,12 +32,15 @@ class DeportistaServices {
     }
 
     async updateDeportista(id, data) {
+        console.log('Service - Actualizando deportista ID:', id);
+        console.log('Service - Datos:', data);
+        
         const updated = await DeportistaRepository.update(id, data);
         if (!updated) {
             throw new Error('Deportista no encontrado');
         }
         return updated;
-    }
+   }
 
     async deleteDeportista(id) {
         const deleted = await DeportistaRepository.delete(id);

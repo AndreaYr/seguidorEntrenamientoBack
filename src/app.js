@@ -8,6 +8,7 @@ import Usuario from "./routes/UsuarioRoutes.js";
 import DeportistaRoutes from "./routes/DeportistaRoutes.js";
 import EntrenamientoRoutes from "./routes/EntrenamientoRoutes.js";
 import ReporteRoutes from "./routes/ReporteRoutes.js";
+import entrenadoresRoutes from "./routes/EntrenadoresRoutes.js";
 import RetoRoutes from "./routes/RetoRoutes.js";
 import UserRoutes from "./routes/userRoutes.js"
 import consultaReporteRoutes from "./routes/ConsultaReporteRoutes.js"
@@ -36,6 +37,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 // Rutas públicas 
 app.use("/login", UserRoutes);
 app.use("/usuarios", Usuario);
+app.use("/entrenadores", entrenadoresRoutes);
 app.use("/deportistas", DeportistaRoutes);
 app.use("/entrenamientos", EntrenamientoRoutes);
 app.use("/reportes", ReporteRoutes);
